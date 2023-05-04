@@ -1,0 +1,11 @@
+docker --version
+ibmcloud version
+ibmcloud target
+ibmcloud cr namespaces
+ibmcloud cr region-set us-south
+ibmcloud cr login
+export MY_NAMESPACE=sn-labs-$USERNAME
+docker tag myimage:v1 us.icr.io/$MY_NAMESPACE/hello-world:1
+docker push us.icr.io/$MY_NAMESPACE/hello-world:1
+ibmcloud cr images
+ibmcloud cr images --restrict $MY_NAMESPACE
