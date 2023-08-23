@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: django-backend-k8s
+spec:
+  type: LoadBalancer
+  selector:
+    app: django-backend-k8s
+  ports:
+  - port: 8000
+    targetPort: 8000

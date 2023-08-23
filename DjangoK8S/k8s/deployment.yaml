@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django-backend-k8s
+spec:
+  selector:
+    matchLabels:
+      app: django-backend-k8s
+  template:
+    metadata:
+      labels:
+        app: django-backend-k8s
+    spec:
+      containers:
+      - name: django-backend-k8s
+        image: 40781998/django-backend-k8s:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "250m"
+        ports:
+        - containerPort: 8000
