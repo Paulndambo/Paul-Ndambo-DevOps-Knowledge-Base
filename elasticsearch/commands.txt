@@ -1,0 +1,5 @@
+## CREATE CUSTOM BRIDGE NETWORK
+docker network create elasticsearch
+
+## CREATE & RUN ELASTICSEARCH CONTAINER
+docker run -p 9200:9200 -e discovery.type=single-node --network=elasticsearch --name=elasticsearch -d bitnami/elasticsearch

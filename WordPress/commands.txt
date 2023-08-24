@@ -1,0 +1,7 @@
+docker run --network wordpress -e MYSQL_ROOT_PASSWORD=1234 -e MYSQL_DATABASE=kadabo -e MYSQL_USER=kadabo -e MYSQL_PASSWORD=1234 --name mysql -d mysql
+
+docker run --network wordpress -p 8081:80 -e PMA_HOST=mysql -d phpmyadmin/phpmyadmin
+
+docker run --name wordpress-app -p 8082:80 \
+    -e WORDPRESS_DB_HOST=mysql -e WORDPRESS_DB_USER=kadabo -e WORDPRESS_DB_PASSWORD=1234 \
+    -e WORDPRESS_DB_NAME=kadabo --network wordpress -d wordpress
