@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  postgres_db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - 5434:5432
+    volumes:
+      - c2s-postgres-data:/var/lib/postgresql/data
+
+  startup:
+    image: alpine
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+      POSTGRES_HOST: postgres_db
+    volumes:
+      - ./runme.sh:/runme.sh
+    command: /bin/sh /runme.sh
+    depends_on:
+      - postgres_db
+
+  pg_admin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.com
+      PGADMIN_DEFAULT_PASSWORD: password
+      PGADMIN_LISTEN_PORT: 8001
+    ports:
+      - 8001:8001
+    depends_on:
+      - postgres_db
+
+volumes:
+  c2s-postgres-data:
